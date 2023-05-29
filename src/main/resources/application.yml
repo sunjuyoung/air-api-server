@@ -1,0 +1,50 @@
+server:
+  port: 8081
+
+
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5532/airbnbapi
+    username: sun
+    password: 1234
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        show_sql: true
+        default_batch_fetch_size: 100
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+
+
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      enabled: true
+      max-file-size: 10MB
+      location: C:\\Users\\SUN\\work\\airbnb-react-spring\\ui\\public\\images\\listing
+
+
+
+airbnb.upload.path: C:\\Users\\SUN\\work\\airbnb-react-spring\\ui\\public\\images\\listing
+
+mybatis:
+  mapper-locations: mybatis/mapper/**.xml
+
+logging:
+  level:
+    com.example.airbnbApi: debug
+    org.hibernate.sql: debug
+
+

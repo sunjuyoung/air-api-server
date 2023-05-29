@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.airbnbApi.user.mapper.UserMapper">
+
+    <select id="getAccountWithFavoritesById" resultType="com.example.airbnbApi.user.vo.FavoriteVO">
+        SELECT f.favorite_listing_id
+        FROM account a
+        INNER JOIN favorites f ON f.favorite_id = a.account_id
+        ;
+    </select>
+
+    <select id="getUserWithFavoriteByEmail" resultType="com.example.airbnbApi.user.vo.UserResponseVO">
+        SELECT a.account_id AS account_id, a.email , a.name,
+               (SELECT STRING_AGG(cast(fa.favorite_listing_id AS text), ', ')
+                FROM favorites fa
+                         INNER JOIN account ac ON ac.account_id = fa.favorite_id
+                GROUP BY ac.account_id) AS favorite_ids
+        FROM account a
+        WHERE a.email = #{email}
+        ORDER BY a.account_id ASC;
+    </select>
+
+    <select id="getFavoriteListByUserId" resultType="com.example.airbnbApi.user.vo.FavoriteListVO">
+        SELECT l.listing_id, a.account_id,l.location,l.title,l.price,l.image_src,l.start_date,l.end_date
+        FROM account a
+          INNER JOIN favorites f  on f.favorite_id = a.account_id
+          INNER JOIN listing l  on l.listing_id = f.favorite_listing_id
+        WHERE a.account_id = #{account_id}
+        ;
+    </select>
+
+    
+</mapper>

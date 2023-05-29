@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.airbnbApi.listing.mapper.ListingMapper">
+
+
+    <select id="getAllListings" resultType="com.example.airbnbApi.listing.vo.ListingVO">
+        SELECT distinct l.listing_id AS listing_id, l.title, l.location, l.price,l.image_src,
+               (SELECT STRING_AGG(c.name, ', ')
+                FROM category c
+                INNER JOIN listing_category lc ON c.category_id = lc.category_id
+                GROUP BY lc.listing_id) AS categories
+
+        FROM listing l
+        INNER JOIN listing_category lc ON lc.listing_id = l.listing_id
+        INNER JOIN category c ON c.category_id = lc.category_id
+        <where>
+         <if test="category != null and category != '' ">
+            c.name like concat(#{category})
+         </if>
+
+        <if test="locationValue != null and locationValue != '' ">
+            l.location = #{locationValue}
+        </if>
+
+        </where>
+        ORDER BY l.listing_id ASC;
+    </select>
+
+    <select id="getListingById" resultType="com.example.airbnbApi.listing.vo.ListingVO">
+        SELECT l.listing_id AS listing_id, l.title, l.location, l.price,l.image_src,
+               (SELECT STRING_AGG(c.name, ', ')
+                FROM category c
+                INNER JOIN listing_category lc ON c.category_id = lc.category_id
+                WHERE lc.listing_id = l.listing_id
+                GROUP BY lc.listing_id) AS categories
+        FROM listing l
+        WHERE l.listing_id = #{listing_id}
+        ORDER BY l.listing_id ASC;
+    </select>
+
+
+
+    
+</mapper>

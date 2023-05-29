@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>이메일 인증</title>
+</head>
+<body>
+<div>
+  <p>안녕하세요. <span th:text="${nickname}"></span>님</p>
+  <p th:text="${message}">메시지</p>
+  <div>
+    <h2>
+      <a th:href="${link}" th:text="${linkName}">Link</a>
+    </h2>
+  </div>
+</div>
+<hr />
+<footer>
+  <small>airbnb 2023.1.1</small>
+</footer>
+</body>
+</html>
