@@ -6,7 +6,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5532/airbnbapi
+    url: jdbc:postgresql://59.13.200.90:5532/airbnbapi
     username: ENC(lOMQCUPklqT/UWHmMWQ7tA==)
     password: ENC(ezP27P4Yq8Q73O3RXHWNEQ==)
 
