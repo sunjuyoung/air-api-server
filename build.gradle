@@ -25,6 +25,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'javax.xml.bind:jaxb-api:2.3.1'
+	// https://mvnrepository.com/artifact/com.github.ulisesbocchio/jasypt-spring-boot-starter
+	implementation group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot-starter', version: '3.0.5'
+
 
 	// https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
@@ -70,5 +73,5 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
-
+	systemProperty "jasypt.encryptor.password", System.getProperties().get("jasypt.encryptor.password")
 }

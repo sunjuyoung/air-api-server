@@ -7,8 +7,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5532/airbnbapi
-    username: sun
-    password: 1234
+    username: ENC(lOMQCUPklqT/UWHmMWQ7tA==)
+    password: ENC(ezP27P4Yq8Q73O3RXHWNEQ==)
 
   mvc:
     pathmatch:
@@ -26,7 +26,12 @@ spring:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
-
+application:
+  jwt:
+    secret-key: ENC(1E5D9LTH/t4Fkl9AB2ufV72DcA8S8pIvAVcW2c4pJgvqVwQIvBTdawbsKXXAbbo2YvNePLX/IOIusGgDj7zXdrR5/G/0z1YKhmwaJyYO1HE=)
+    expiration: 86400000
+    refresh-token:
+      expiration: 604800000 # 7 day
 
   servlet:
     multipart:
@@ -36,6 +41,17 @@ spring:
       location: C:\\Users\\SUN\\work\\airbnb-react-spring\\ui\\public\\images\\listing
 
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: syseoz@gmail.com
+    password: ENC(NdwLGJAB+YhsvsL2/EZwGYaVlchcMYcGJR80vb6mMpg=)
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 airbnb.upload.path: C:\\Users\\SUN\\work\\airbnb-react-spring\\ui\\public\\images\\listing
 
@@ -48,3 +64,8 @@ logging:
     org.hibernate.sql: debug
 
 
+
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
