@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Log4j2
 @Component
-@Profile("dev")
+//@Profile("dev")
 @RequiredArgsConstructor
 public class HtmlEmailService implements EmailService{
 
