@@ -36,6 +36,14 @@ spring:
         default_batch_fetch_size: 100
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+  main:
+    web-application-type: servlet
+  servlet:
+    multipart:
+      max-request-size: 5MB
+      enabled: true
+      max-file-size: 5MB
+      location: C:\\Users\\SUN\\work\\airbnb-react-spring\\ui\\public\\images\\listing
 
 application:
   jwt:
@@ -44,14 +52,13 @@ application:
     refresh-token:
       expiration: 604800000 # 7 day
 
-  servlet:
-    multipart:
-      max-request-size: 10MB
-      enabled: true
-      max-file-size: 10MB
-      location: C:\\Users\\SUN\\work\\airbnb-react-spring\\ui\\public\\images\\listing
 
 
+
+aws:
+  s3:
+    buckets:
+      airbnb: syseoz610-airbnb-test
 
 
 airbnb.upload.path: C:\\Users\\SUN\\work\\airbnb-react-spring\\ui\\public\\images\\listing

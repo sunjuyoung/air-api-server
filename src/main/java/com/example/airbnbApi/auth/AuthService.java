@@ -50,18 +50,24 @@ public class AuthService   {
 
 
     public Account register(RegisterRequest request,boolean social) {
-        var user = Account.builder()
-                .name(request.getName())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.MEMBER)
-                .social(social)
-                .image(request.getImagePath())
-                .build();
+//        var user = Account.builder()
+//                .name(request.getName())
+//                .email(request.getEmail())
+//                .password()
+//                .role(Role.MEMBER)
+//                .social(social)
+//                .image(request.getImagePath())
+//                .build();
+
+        var user = new Account(
+                request.getName(),
+                request.getEmail(),
+                passwordEncoder.encode(request.getPassword()),
+                social);
+
         user.generateToken();
         Account account = userRepository.save(user);
         return account;
-        //sendSignUpConfirmEmail(account);
     }
 
     public void sendCheckEmail(Account account){

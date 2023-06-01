@@ -42,6 +42,9 @@ public class Account  extends BaseTime {
 
     private String image;
 
+    @Column(unique = true)
+    private String profileImageId;
+
     @Temporal(TemporalType.DATE)
     private LocalDate dateOfBirth;
 
@@ -74,6 +77,15 @@ public class Account  extends BaseTime {
     }
 
 
+    public Account(String name, String email, String password, boolean social) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.social = social;
+        this.role = Role.MEMBER;
+    }
 
-
+    public void updateProfileImage(String profileImageId){
+        this.profileImageId = profileImageId;
+    }
 }

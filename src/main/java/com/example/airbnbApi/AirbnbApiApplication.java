@@ -5,6 +5,8 @@ import com.example.airbnbApi.auth.AuthRequest;
 import com.example.airbnbApi.auth.AuthService;
 import com.example.airbnbApi.auth.RegisterRequest;
 import com.example.airbnbApi.category.CategoryService;
+import com.example.airbnbApi.s3.S3Buckets;
+import com.example.airbnbApi.s3.S3Service;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -31,14 +33,28 @@ public class AirbnbApiApplication {
 
 
 
-//	@Bean
-//	ApplicationRunner applicationRunner(CategoryService categoryService, AuthService authService){
-//		return args -> {
-//			categoryService.createCategory();
+	@Bean
+	ApplicationRunner applicationRunner(CategoryService categoryService,
+										AuthService authService,
+										S3Service s3Service,
+										S3Buckets s3Buckets){
+		return args -> {
+			categoryService.createCategory();
 //			authService.register(new RegisterRequest("test@test.com","test1","1234"),false);
 //			authService.register(new RegisterRequest("test2@test.com","test2","1234"),false);
 //			authService.authenticate(new AuthRequest("test@test.com","1234"));
-//		};
-//	}
+
+			//testBucketUploadAndDownload(s3Service,s3Buckets);
+
+		};
+	}
+
+	private static void testBucketUploadAndDownload(S3Service s3Service,
+													S3Buckets s3Buckets) {
+		s3Service.putObject(s3Buckets.getAirbnb(),
+				"syseoz/bar/test2","hello world".getBytes());
+		byte[] re = s3Service.getObject(s3Buckets.getAirbnb(), "syseoz/bar/test2");
+		System.out.println("file : " + new String(re));
+	}
 
 }

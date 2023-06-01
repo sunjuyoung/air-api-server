@@ -6,8 +6,10 @@ import com.example.airbnbApi.user.mapper.UserMapper;
 import com.example.airbnbApi.user.vo.FavoriteListVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Set;
@@ -46,6 +48,18 @@ public class UserController {
         Set<Integer> favorites = userService.getFavoriteByEmail(account_id);
        // Set<Integer> favoritesById = userMapper.getAccountWithFavoritesById(account_id);
         return ResponseEntity.ok().body(favorites);
+    }
+
+    @PostMapping(value = "/{account_id}/profile-image",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void uploadUserProfileImage(@PathVariable("account_id") Integer account_id,
+                                       @RequestParam("file") MultipartFile file){
+
+        userService.uploadProfileImage(account_id,file);
+    }
+
+    @GetMapping(value = "/{account_id}/profile-image")
+    public byte[] getUserProfileImage(@PathVariable("account_id") Integer account_id){
+        return userService.getUserProfileImage(account_id);
     }
 
 

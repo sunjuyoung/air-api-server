@@ -2,21 +2,67 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>이메일 인증</title>
+    <title>Airbnb demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #333333;
+            margin-top: 0;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555555;
+            margin-bottom: 20px;
+        }
+
+        a {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            color: #888888;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-<div>
-    <p>안녕하세요. <span th:text="${nickname}"></span>님</p>
-    <p th:text="${message}">메시지</p>
-    <div>
-        <h2>
-        <a th:href="${link}" th:text="${linkName}">Link</a>
-        </h2>
-    </div>
+<div class="container">
+    <h2>Airbnb Demo</h2>
+    <p>가입해주셔서 감사합니다.</p>
+    <p>아래 인증버튼을 클릭하고 인증을 완료해주세요: <span th:text="${nickname}"></span>님 </p>
+    <a th:href="${link}" th:text="${linkName}">Link</a>
+
 </div>
-<hr />
 <footer>
-    <small>airbnb 2023.1.1</small>
+    <small> &copy; 2023 Airbnb. All rights reserved.</small>
 </footer>
 </body>
 </html>
