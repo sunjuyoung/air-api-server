@@ -50,21 +50,11 @@ public class AuthService   {
 
 
     public Account register(RegisterRequest request,boolean social) {
-//        var user = Account.builder()
-//                .name(request.getName())
-//                .email(request.getEmail())
-//                .password()
-//                .role(Role.MEMBER)
-//                .social(social)
-//                .image(request.getImagePath())
-//                .build();
-
         var user = new Account(
                 request.getName(),
                 request.getEmail(),
                 passwordEncoder.encode(request.getPassword()),
                 social);
-
         user.generateToken();
         Account account = userRepository.save(user);
         return account;
@@ -90,6 +80,7 @@ public class AuthService   {
         currentUser.put("id",account.getId().toString());
         currentUser.put("name",account.getName());
         currentUser.put("email",account.getEmail());
+        currentUser.put("emailVerify",account.isEmailVerified());
         currentUser.put("favorites",account.getFavorites());
 
 
@@ -120,6 +111,17 @@ public class AuthService   {
         }
         String message = templateEngine.process("mail/check-email-after",context);
         return message;
+
+    }
+
+    public void resendCheckEmailConfirm(Integer account_id) {
+        Account account = userRepository.findOnlyId(account_id);
+        if(account.isEmailVerified()){
+            throw new IllegalArgumentException("인증 완료된 회원입니다.");
+        }else{
+            account.generateToken();
+            sendCheckEmail(account);
+        }
 
     }
 

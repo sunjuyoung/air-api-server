@@ -94,8 +94,6 @@ public class ListingRepositoryExtensionImpl extends QuerydslRepositorySupport im
         ).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
         List<Listing> results = listingQueryResults.getResults();
         long total = listingQueryResults.getTotal();
-
-        //return PageableExecutionUtils.getPage(results,pageable,total)
         return new PageImpl<>(results,pageable,total);
     }
 
@@ -115,8 +113,6 @@ public class ListingRepositoryExtensionImpl extends QuerydslRepositorySupport im
                 .leftJoin(category).fetchJoin()
                 .leftJoin(listing.reviews, review).fetchJoin()
                 .where(account.id.eq(listing_id)).fetch();
-
-
         return null;
     }
 
@@ -126,11 +122,10 @@ public class ListingRepositoryExtensionImpl extends QuerydslRepositorySupport im
 
     private BooleanExpression categoryEq(Category category){
         if(category != null){
-            return  listing.categories.contains(category);
+            return  listing.categories.any().in(category);
         }
         return null;
     }
-
     private BooleanExpression dateEq(LocalDate startDate ,LocalDate endDate){
         if(startDate != null && endDate != null){
            return listing.startDate.lt(startDate).and(listing.endDate.gt(endDate));
@@ -162,8 +157,8 @@ public class ListingRepositoryExtensionImpl extends QuerydslRepositorySupport im
                 .leftJoin(reservation).on(reservation.listing.eq(listing))
                 .leftJoin(category).fetchJoin()
                 .leftJoin(listing.reviews, review).fetchJoin()
+                .orderBy(listing.id.desc())
                 .select(listing);
-
     }
 
 

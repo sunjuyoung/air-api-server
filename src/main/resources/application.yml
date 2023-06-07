@@ -3,6 +3,7 @@ server:
 
 
 
+
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -27,7 +28,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -52,10 +53,22 @@ application:
     refresh-token:
       expiration: 604800000 # 7 day
 
+cloud:
+  aws:
+    s3:
+      bucket: syseoz610-airbnb-test
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      access-key: ENC(VAGdGiO9EE+pQgRP6vi88kOnijub18+BRXv3A/KX6xk=)
+      secret-key: ENC(WbSokrh4Y4wV9mTHMNN9NR+tmxelxwntGdDuDpnCjYIwBXDWY0CF8zXe0epjNXmFThRtPxM7qVA=)
 
 
 
 aws:
+
   s3:
     buckets:
       airbnb: syseoz610-airbnb-test

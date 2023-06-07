@@ -3,6 +3,7 @@ package com.example.airbnbApi.auth;
 
 
 import com.example.airbnbApi.user.Account;
+import com.example.airbnbApi.user.UserRepository;
 import com.example.airbnbApi.valid.RegisterValidation;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ public class AuthController {
 
     private final AuthService service;
     private final RegisterValidation registerValidation;
+    private final UserRepository userRepository;
 
     @InitBinder("registerRequest")
     public void initBinder(WebDataBinder webDataBinder){
@@ -44,7 +46,6 @@ public class AuthController {
         }
         Account newAccount = service.register(registerRequest, false);
         service.sendCheckEmail(newAccount);
-
         return ResponseEntity.ok().body("success");
     }
 
@@ -59,6 +60,12 @@ public class AuthController {
                                                           @PathVariable("email") String email){
         String confirm = service.checkEmailConfirm(token, email);
         return ResponseEntity.ok().body(confirm);
+    }
+
+    @GetMapping("/resend-check-email/{account_id}")
+    public ResponseEntity<?> resendCheckEmailConfirm(@PathVariable("account_id") Integer account_id){
+        service.resendCheckEmailConfirm(account_id);
+        return ResponseEntity.ok().body("success");
     }
 
 

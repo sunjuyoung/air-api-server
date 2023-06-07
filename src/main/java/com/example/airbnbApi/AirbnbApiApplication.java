@@ -18,6 +18,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
+
 @SpringBootApplication
 @EnableJpaAuditing
 @RestController
@@ -26,8 +28,6 @@ public class AirbnbApiApplication {
 
 
 	public static void main(String[] args) {
-
-
 		SpringApplication.run(AirbnbApiApplication.class, args);
 	}
 
@@ -36,10 +36,9 @@ public class AirbnbApiApplication {
 	@Bean
 	ApplicationRunner applicationRunner(CategoryService categoryService,
 										AuthService authService,
-										S3Service s3Service,
 										S3Buckets s3Buckets){
 		return args -> {
-			categoryService.createCategory();
+//		categoryService.createCategory();
 //			authService.register(new RegisterRequest("test@test.com","test1","1234"),false);
 //			authService.register(new RegisterRequest("test2@test.com","test2","1234"),false);
 //			authService.authenticate(new AuthRequest("test@test.com","1234"));
@@ -49,12 +48,12 @@ public class AirbnbApiApplication {
 		};
 	}
 
-	private static void testBucketUploadAndDownload(S3Service s3Service,
-													S3Buckets s3Buckets) {
-		s3Service.putObject(s3Buckets.getAirbnb(),
-				"syseoz/bar/test2","hello world".getBytes());
-		byte[] re = s3Service.getObject(s3Buckets.getAirbnb(), "syseoz/bar/test2");
-		System.out.println("file : " + new String(re));
-	}
+//	private static void testBucketUploadAndDownload(S3Service s3Service,
+//													S3Buckets s3Buckets) {
+//		s3Service.putObject(s3Buckets.getAirbnb(),
+//				"syseoz/bar/test2",new File("hi"));
+//		byte[] re = s3Service.getObject(s3Buckets.getAirbnb(), "syseoz/bar/test2");
+//		System.out.println("file : " + new String(re));
+//	}
 
 }

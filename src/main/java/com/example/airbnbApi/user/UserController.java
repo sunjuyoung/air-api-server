@@ -2,8 +2,10 @@ package com.example.airbnbApi.user;
 
 import com.example.airbnbApi.user.dto.FavoriteDTO;
 import com.example.airbnbApi.user.dto.FavoriteListDTO;
+import com.example.airbnbApi.user.dto.ProfileResponseDTO;
 import com.example.airbnbApi.user.mapper.UserMapper;
 import com.example.airbnbApi.user.vo.FavoriteListVO;
+import com.example.airbnbApi.user.vo.UserResponseVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -22,6 +25,13 @@ public class UserController {
 
     private final UserService userService;
     private final UserMapper userMapper;
+
+
+    @GetMapping("/profile/{account_id}")
+    public ResponseEntity<?> getProfileById(@PathVariable("account_id") Integer account_id){
+        ProfileResponseDTO profileResponseDTO =  userService.getUserById(account_id);
+        return ResponseEntity.ok().body(profileResponseDTO);
+    }
 
     @PostMapping("/favorite")
     public ResponseEntity<?> addFavorite(@RequestBody FavoriteDTO favoriteDTO){
@@ -52,14 +62,13 @@ public class UserController {
 
     @PostMapping(value = "/{account_id}/profile-image",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void uploadUserProfileImage(@PathVariable("account_id") Integer account_id,
-                                       @RequestParam("file") MultipartFile file){
-
+                                       @RequestParam("file") MultipartFile file) throws IOException {
         userService.uploadProfileImage(account_id,file);
     }
 
-    @GetMapping(value = "/{account_id}/profile-image")
-    public byte[] getUserProfileImage(@PathVariable("account_id") Integer account_id){
-        return userService.getUserProfileImage(account_id);
+    @GetMapping(value = "/{account_id}/profile-image",produces = {MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE})
+    public ResponseEntity<?> getUserProfileImage(@PathVariable("account_id") Integer account_id){
+        return ResponseEntity.ok().body(userService.getUserProfileImage(account_id));
     }
 
 

@@ -34,11 +34,11 @@ class UserServiceTest {
 
     @BeforeEach
     void setUp(){
-
-        service = new UserService(userRepository,
-                userMapper,
-                s3Service,
-                s3Buckets);
+//
+//        service = new UserService(userRepository,
+//                userMapper,
+//                s3Service,
+//                s3Buckets);
 
     }
 

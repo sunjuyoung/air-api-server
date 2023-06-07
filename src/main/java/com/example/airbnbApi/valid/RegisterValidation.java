@@ -25,6 +25,7 @@ public class RegisterValidation implements Validator {
         RegisterRequest request = (RegisterRequest) object;
         if(userRepository.existsByName(request.getName())){
             errors.rejectValue("name","invalid.name",new Object[]{request.getName()},"이미 사용중인 닉네임 또는 이메일 입니다.");
+
         }
         if(userRepository.existsByEmail(request.getEmail())){
             errors.rejectValue("email","invalid.email",new Object[]{request.getEmail()},"이미 사용중인 이메일 입니다.");

@@ -61,11 +61,23 @@ public class Account  extends BaseTime {
     @Column(name = "favorite_listing_id")
     private Set<Integer> favorites = new HashSet<>();
 
+    private int tokenGenerationCount;
 
     public void generateToken() {
-        this.emailCheckToken = UUID.randomUUID().toString();
-        this.emailCheckAt = LocalDateTime.now();
+        if(initializeTokenGenerationCount()){
+            tokenGenerationCount = 0;
+        }
+
+        if (tokenGenerationCount < 3 && !checkGenerateTokenInterval()) {
+            this.emailCheckToken = UUID.randomUUID().toString();
+            this.emailCheckAt = LocalDateTime.now();
+            tokenGenerationCount++;
+        } else {
+            throw new RuntimeException("토큰발행 횟수 초과 15분후 다시 시도해 주세요.");
+        }
     }
+
+
 
     public void checkEmailToken(String token) {
         if(this.emailCheckToken.equals(token) && !checkConfirmEmailDate()){
@@ -74,6 +86,16 @@ public class Account  extends BaseTime {
     }
     public boolean checkConfirmEmailDate() {
         return this.emailCheckAt.isBefore(LocalDateTime.now().minusMinutes(15));
+    }
+
+    private boolean checkGenerateTokenInterval() {
+        return emailCheckAt != null && emailCheckAt.isAfter(LocalDateTime.now().minusMinutes(15));
+    }
+
+    private boolean initializeTokenGenerationCount(){
+      return  tokenGenerationCount >=3 &&
+                emailCheckAt != null &&
+                emailCheckAt.isAfter(LocalDateTime.now().minusMinutes(15));
     }
 
 

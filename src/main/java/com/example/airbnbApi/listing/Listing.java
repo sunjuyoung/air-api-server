@@ -95,6 +95,7 @@ public class Listing extends BaseTime {
      * 생성메서드
      */
     public static Listing createListing(Account account, RegisterListingDTO dto, Set<Category> category){
+
         Listing listing = Listing.builder()
                 .description(dto.getDescription())
                 .title(dto.getTitle())
@@ -107,9 +108,8 @@ public class Listing extends BaseTime {
                 .startDate(dto.getStartDate())
                 .endDate(dto.getEndDate())
                 .images(dto.getImages().stream().collect(Collectors.toSet()))
-                .imageSrc(dto.getImages().stream().findFirst().get())
+                .imageSrc("https://syseoz610-airbnb-test.s3.ap-northeast-2.amazonaws.com/listing-images/%s/listing/%s".formatted(account.getId(),dto.getImages().stream().findFirst().get()))
                 .build();
-
         for(Category c : category){
             listing.setCategory(c);
         }

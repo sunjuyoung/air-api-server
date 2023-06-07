@@ -12,12 +12,10 @@ import org.springframework.stereotype.Component;
 
 @Log4j2
 @Component
-//@Profile("dev")
 @RequiredArgsConstructor
 public class HtmlEmailService implements EmailService{
 
     private final JavaMailSender javaMailSender;
-
 
     @Override
     public void sendEmail(EmailMessage emailMessage) {

@@ -60,11 +60,10 @@ public class SecurityConfiguration {
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
 
-//        ///api 시작하는  url 경우 401 상태 코드로 반환
-//        http.exceptionHandling()
-//
-//                .defaultAuthenticationEntryPointFor(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
-//                        new AntPathRequestMatcher("/api/**"));
+
+            http.exceptionHandling()
+                    .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
+               //.accessDeniedHandler(new CustomAccessDeniedHandler());
 
         return http.build();
 

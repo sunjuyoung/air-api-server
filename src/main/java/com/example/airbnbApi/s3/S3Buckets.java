@@ -9,6 +9,7 @@ public class S3Buckets {
 
     private String airbnb;
 
+
     public String getAirbnb() {
         return airbnb;
     }

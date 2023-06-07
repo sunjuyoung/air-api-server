@@ -1,0 +1,14 @@
+insert into category (category_id, description, icon, name) values (1,null,null,'Beach');
+insert into category (category_id, description, icon, name) values (2,null,null,'Windmills');
+insert into category (category_id, description, icon, name) values (3,null,null,'Modern');
+insert into category (category_id, description, icon, name) values (4,null,null,'Countryside');
+insert into category (category_id, description, icon, name) values (5,null,null,'Pools');
+insert into category (category_id, description, icon, name) values (6,null,null,'Island');
+insert into category (category_id, description, icon, name) values (7,null,null,'Ski');
+insert into category (category_id, description, icon, name) values (8,null,null,'Castles');
+insert into category (category_id, description, icon, name) values (9,null,null,'Caves');
+insert into category (category_id, description, icon, name) values (10,null,null,'Camping');
+insert into category (category_id, description, icon, name) values (11,null,null,'Arctic');
+insert into category (category_id, description, icon, name) values (12,null,null,'Desert');
+insert into category (category_id, description, icon, name) values (13,null,null,'Barns');
+insert into category (category_id, description, icon, name) values (14,null,null,'Lux');

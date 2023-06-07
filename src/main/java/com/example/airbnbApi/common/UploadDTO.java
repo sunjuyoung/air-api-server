@@ -14,4 +14,7 @@ import java.util.List;
 public class UploadDTO {
 
     private List<MultipartFile> files = new ArrayList<>();
+
+
+    private String account_id;
 }
